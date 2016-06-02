@@ -18,7 +18,8 @@ $app->before(function (Request $request) use($bot) {
 
 $app->get('/callback', function (Request $request) use ($app) {
     $response = "";
-    if ($request->query->get('hub_verify_token') === getenv('kawamurakazushi')) {
+    // if ($request->query->get('hub_verify_token') === getenv('kawamurakazushi')) {
+    if ($request->query->get('hub_verify_token') === 'kawamurakazushi') {
         $response = $request->query->get('hub_challenge');
     }
 

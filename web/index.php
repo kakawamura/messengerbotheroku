@@ -16,6 +16,7 @@ $app->before(function (Request $request) use($bot) {
     // TODO validation
 });
 
+// Webhookを設定するときに必要
 $app->get('/callback', function (Request $request) use ($app) {
     $response = "";
     // if ($request->query->get('hub_verify_token') === getenv('kawamurakazushi')) {
@@ -46,7 +47,7 @@ $app->post('/callback', function (Request $request) use ($app) {
                         'id' => $from, 
                     ],
                     'message' => [
-                        'text' => sprintf('%sじゃない', $text), 
+                        'text' => sprintf('%sふぁああ', $text), 
                     ],
                 ];
                 $client->request('POST', $path, ['json' => $json]);

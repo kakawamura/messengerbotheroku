@@ -37,6 +37,7 @@ $app->post('/callback', function (Request $request) use ($app) {
         $app['monolog']->addInfo(sprintf('obj: %s', json_encode($obj)));
 
         foreach ($obj['messaging'] as $m) {
+
             $app['monolog']->addInfo(sprintf('messaging: %s', json_encode($m)));
             $from = $m['sender']['id'];
             $text = $m['message']['text'];
@@ -44,6 +45,7 @@ $app->post('/callback', function (Request $request) use ($app) {
             if ($text == 'weather') {
                 // $url = "";
                 // $results = $this->callAPI("GET", $url);
+                /**
                 $json = [
                     'recipient' => [
                         'id' => $from, 
@@ -54,6 +56,7 @@ $app->post('/callback', function (Request $request) use ($app) {
                 ];
 				
                 $client->request('POST', $path, ['json' => $json]);
+                **/
 
             } else if ($text) {
                 $path = sprintf('me/messages?access_token=%s', 'EAAG9bUdzn2IBANNOL7Oy1bpnZCVbTRffsAONfplAlfzcK2iLZCVvopgX9oGyI5aZCERC8XBUsz8FDZBvfPUOEN0bDd0DNxwKYM8xus494feQcqLq5IOs5DrQZArQF4b0kfrZBgOTgZBMp2KzMRFr7k2wqF050usamy64zccTu0qbAZDZD');

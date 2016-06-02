@@ -42,31 +42,32 @@ $app->post('/callback', function (Request $request) use ($app) {
             $from = $m['sender']['id'];
             $text = $m['message']['text'];
 
-            if ($text == 'weather') {
-                $url = 'http://weather.livedoor.com/forecast/webservice/json/v1?city=400040';
-                // $results = $this->callAPI("GET", $url);
-                $json = [
-                    'recipient' => [
-                        'id' => $from, 
-                    ],
-                    'message' => [
-                        'text' => $url,
-                    ],
-                ];
-				
-                $client->request('POST', $path, ['json' => $json]);
 
-            } else if ($text) {
+            if ($text) {
                 $path = sprintf('me/messages?access_token=%s', 'EAAG9bUdzn2IBANNOL7Oy1bpnZCVbTRffsAONfplAlfzcK2iLZCVvopgX9oGyI5aZCERC8XBUsz8FDZBvfPUOEN0bDd0DNxwKYM8xus494feQcqLq5IOs5DrQZArQF4b0kfrZBgOTgZBMp2KzMRFr7k2wqF050usamy64zccTu0qbAZDZD');
-                $json = [
-                    'recipient' => [
-                        'id' => $from, 
-                    ],
-                    'message' => [
-                        'text' => sprintf('%sふぁああ', $text), 
-                    ],
-                ];
-                $client->request('POST', $path, ['json' => $json]);
+
+                if ($text == 'weather') {
+                    $json = [
+                        'recipient' => [
+                            'id' => $from, 
+                        ],
+                        'message' => [
+                            'text' => 'weatherrr',
+                        ],
+                    ];
+                    $client->request('post', $path, ['json' => $json]);
+                } else {
+                    $json = [
+                        'recipient' => [
+                            'id' => $from, 
+                        ],
+                        'message' => [
+                            'text' => sprintf('%sふぁああ', $text), 
+                        ],
+                    ];
+                  $client->request('post', $path, ['json' => $json]);
+                }
+
             }
         }
 

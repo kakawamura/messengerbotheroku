@@ -49,7 +49,7 @@ $app->post('/callback', function (Request $request) use ($app) {
                 if ($text == 'weather') {
                     $url = 'http://weather.livedoor.com/forecast/webservice/json/v1?city=400040';
                     $weather = json_decode(file_get_contents($url), true);
-                    error_log("hello, this is a test!");
+                    error_log($weather);
                      
                     $json = [
                         'recipient' => [

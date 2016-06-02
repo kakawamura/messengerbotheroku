@@ -47,16 +47,18 @@ $app->post('/callback', function (Request $request) use ($app) {
                 $path = sprintf('me/messages?access_token=%s', 'EAAG9bUdzn2IBANNOL7Oy1bpnZCVbTRffsAONfplAlfzcK2iLZCVvopgX9oGyI5aZCERC8XBUsz8FDZBvfPUOEN0bDd0DNxwKYM8xus494feQcqLq5IOs5DrQZArQF4b0kfrZBgOTgZBMp2KzMRFr7k2wqF050usamy64zccTu0qbAZDZD');
 
                 if ($text == 'weather') {
-                    $url = 'http://weather.livedoor.com/forecast/webservice/json/v1?city=400040';
+                    $url = 'http://weather.livedoor.com/forecast/webservice/json/v1?city=130010';
                     $weather = json_decode(file_get_contents($url), true);
-                    var_dump($weather);
+
+                    $string = "今日の天気は" . $weather['forecasts'][0]['telop'] ."!\n";
+                    $string .= "明日の天気は" .$weather['forecasts'][1]['telop'];
                      
                     $json = [
                         'recipient' => [
                             'id' => $from, 
                         ],
                         'message' => [
-                            'text' => $weather['pinpointLocations'][0]['link'],
+                            'text' => $string,
                         ],
                     ];
                     $client->request('post', $path, ['json' => $json]);

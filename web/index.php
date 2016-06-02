@@ -48,13 +48,14 @@ $app->post('/callback', function (Request $request) use ($app) {
 
                 if ($text == 'weather') {
                     $url = 'http://weather.livedoor.com/forecast/webservice/json/v1?city=400040';
-                    $res = $this->callAPI('GET', $url);
+                    $weather = json_decode(file_get_contents($url), true);
+                     
                     $json = [
                         'recipient' => [
                             'id' => $from, 
                         ],
                         'message' => [
-                            'text' => $res,
+                            'text' => $weather,
                         ],
                     ];
                     $client->request('post', $path, ['json' => $json]);

@@ -43,20 +43,18 @@ $app->post('/callback', function (Request $request) use ($app) {
             $text = $m['message']['text'];
 
             if ($text == 'weather') {
-                // $url = "";
+                $url = "http://weather.livedoor.com/forecast/webservice/json/v1?city=400040";
                 // $results = $this->callAPI("GET", $url);
-                /**
                 $json = [
                     'recipient' => [
                         'id' => $from, 
                     ],
                     'message' => [
-                        'text' => "aaaaaa"
+                        'text' => $url,
                     ],
                 ];
 				
                 $client->request('POST', $path, ['json' => $json]);
-                **/
 
             } else if ($text) {
                 $path = sprintf('me/messages?access_token=%s', 'EAAG9bUdzn2IBANNOL7Oy1bpnZCVbTRffsAONfplAlfzcK2iLZCVvopgX9oGyI5aZCERC8XBUsz8FDZBvfPUOEN0bDd0DNxwKYM8xus494feQcqLq5IOs5DrQZArQF4b0kfrZBgOTgZBMp2KzMRFr7k2wqF050usamy64zccTu0qbAZDZD');

@@ -20,6 +20,7 @@ $app->before(function (Request $request) use($bot) {
 $app->get('/callback', function (Request $request) use ($app) {
     $response = "";
     // if ($request->query->get('hub_verify_token') === getenv('kawamurakazushi')) {
+    // Facebookで設定するToken
     if ($request->query->get('hub_verify_token') === 'kawamurakazushi') {
         $response = $request->query->get('hub_challenge');
     }
@@ -28,7 +29,7 @@ $app->get('/callback', function (Request $request) use ($app) {
 });
 
 $app->post('/callback', function (Request $request) use ($app) {
-    // Let's hack from here!
+    // ここで色々編集する
     $body = json_decode($request->getContent(), true);
     $client = new Client(['base_uri' => 'https://graph.facebook.com/v2.6/']);
 
@@ -40,7 +41,21 @@ $app->post('/callback', function (Request $request) use ($app) {
             $from = $m['sender']['id'];
             $text = $m['message']['text'];
 
-            if ($text) {
+            if ($text == 'weather') {
+                $url = "";
+                $results = $this->callAPI("GET", $url);
+                $json = [
+                    'recipient' => [
+                        'id' => $from, 
+                    ],
+                    'message' => [
+                        'text' => $results,
+                    ],
+                ];
+				
+                $client->request('POST', $path, ['json' => $json]);
+
+            } if ($text) {
                 $path = sprintf('me/messages?access_token=%s', 'EAAG9bUdzn2IBANNOL7Oy1bpnZCVbTRffsAONfplAlfzcK2iLZCVvopgX9oGyI5aZCERC8XBUsz8FDZBvfPUOEN0bDd0DNxwKYM8xus494feQcqLq5IOs5DrQZArQF4b0kfrZBgOTgZBMp2KzMRFr7k2wqF050usamy64zccTu0qbAZDZD');
                 $json = [
                     'recipient' => [
@@ -58,5 +73,41 @@ $app->post('/callback', function (Request $request) use ($app) {
 
     return 0;
 });
+
+// Method: POST, PUT, GET etc
+// Data: array("param" => "value") ==> index.php?param=value
+
+function callAPI($method, $url, $data = false) {
+    $curl = curl_init();
+
+    switch ($method)
+    {
+        case "POST":
+            curl_setopt($curl, CURLOPT_POST, 1);
+
+            if ($data)
+                curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+            break;
+        case "PUT":
+            curl_setopt($curl, CURLOPT_PUT, 1);
+            break;
+        default:
+            if ($data)
+                $url = sprintf("%s?%s", $url, http_build_query($data));
+    }
+
+    // Optional Authentication:
+    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($curl, CURLOPT_USERPWD, "username:password");
+
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+
+    $result = curl_exec($curl);
+
+    curl_close($curl);
+
+    return $result;
+}
 
 $app->run();

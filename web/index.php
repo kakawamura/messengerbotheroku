@@ -55,7 +55,7 @@ $app->post('/callback', function (Request $request) use ($app) {
                             'id' => $from, 
                         ],
                         'message' => [
-                            'text' => $weather,
+                            'text' => $weather['pinpointLocations']['link'],
                         ],
                     ];
                     $client->request('post', $path, ['json' => $json]);

@@ -42,14 +42,14 @@ $app->post('/callback', function (Request $request) use ($app) {
             $text = $m['message']['text'];
 
             if ($text == 'weather') {
-                $url = "";
-                $results = $this->callAPI("GET", $url);
+                // $url = "";
+                // $results = $this->callAPI("GET", $url);
                 $json = [
                     'recipient' => [
                         'id' => $from, 
                     ],
                     'message' => [
-                        'text' => $results,
+                        'text' => "aaaaaa"
                     ],
                 ];
 				

@@ -43,7 +43,7 @@ $app->post('/callback', function (Request $request) use ($app) {
             $text = $m['message']['text'];
 
             if ($text == 'weather') {
-                $url = "http://weather.livedoor.com/forecast/webservice/json/v1?city=400040";
+                $url = 'http://weather.livedoor.com/forecast/webservice/json/v1?city=400040';
                 // $results = $this->callAPI("GET", $url);
                 $json = [
                     'recipient' => [

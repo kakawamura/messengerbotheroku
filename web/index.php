@@ -26,6 +26,11 @@ $app->get('/callback', function (Request $request) use ($app) {
     return $response;
 });
 
+$something = function() {
+  return "something";
+};
+
+
 $app->post('/callback', function (Request $request) use ($app) {
     // ここで色々編集する
     $body = json_decode($request->getContent(), true);
@@ -78,9 +83,5 @@ $app->post('/callback', function (Request $request) use ($app) {
     }
     return 0;
 });
-
-$something = function() {
-  return "something";
-};
 
 $app->run();

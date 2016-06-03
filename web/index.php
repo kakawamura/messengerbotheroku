@@ -61,7 +61,7 @@ $app->post('/callback', function (Request $request) use ($app) {
                         'text' => $message,
                     ],
                 ];
-                $client->request('post', $path, ['json' => $json]);
+                $client->request('POST', $path, ['json' => $json]);
             }
         }
     }

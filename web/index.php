@@ -53,7 +53,8 @@ $app->post('/callback', function (Request $request) use ($app) {
                     $message = "今日の天気は" . $weather['forecasts'][0]['telop'] ."!\n";
                     $message .= "明日の天気は" .$weather['forecasts'][1]['telop'];
                 } else {
-                    $message = sprintf('%s?', $text); 
+                    // $message = sprintf('%s?', $text); 
+                    $message = 'yoo';
                 }
 
                 $json = [
@@ -65,7 +66,7 @@ $app->post('/callback', function (Request $request) use ($app) {
                     ],
                 ];
                 $client->request('post', $path, ['json' => $json]);
-        }
+            }
         }
     }
     return 0;

@@ -79,7 +79,7 @@ $app->post('/callback', function (Request $request) use ($app) {
     return 0;
 });
 
-private functon something() {
+private function something() {
 
   return "something";
 }

@@ -38,10 +38,7 @@ $app->post('/callback', function (Request $request) use ($app) {
             $text = $m['message']['text'];
 
             if ($text) {
-                // $path = sprintf('me/messages?access_token=%s', getenv('FACEBOOK_PAGE_ACCESS_TOKEN'));
-                
-
-                 $path = sprintf('me/messages?access_token=%s', "EAAG9bUdzn2IBAIMR6LyOZA5sfcIh5CePqSfciVK1dy06adfypMjZC06JGHMio4fCFNl7K48UAoL8CteGDBfJXSgr9DI6LhBCkkFPfZCudHSmwl75N9ahiuOnieaClAnpEmX11nzIHThyKf4BiB1GWYNemXDM3t01f6xCCtTUwZDZD");
+                $path = sprintf('me/messages?access_token=%s', getenv('FACEBOOK_PAGE_ACCESS_TOKEN'));
                 $message = '';
                 // TODO: 場所を指定したい
                 if ($text == '天気') {

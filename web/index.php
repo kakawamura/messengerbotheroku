@@ -73,7 +73,7 @@ $app->post('/callback', function (Request $request) use ($app) {
                         ],
                         'message' => [
                             //'text' => sprintf('%s?', $text), 
-                            'text' => $something;
+                            'text' => $something,
                         ],
                     ];
                     $client->request('post', $path, ['json' => $json]);

@@ -12,9 +12,6 @@ $app->register(new Silex\Provider\MonologServiceProvider(), array(
     'monolog.logfile' => 'php://stderr',
 ));
 
-$app->before(function (Request $request) use($bot) {
-});
-
 // Webhookを設定するときに必要
 $app->get('/callback', function (Request $request) use ($app) {
     $response = "";
@@ -53,8 +50,7 @@ $app->post('/callback', function (Request $request) use ($app) {
                     $message = "今日の天気は" . $weather['forecasts'][0]['telop'] ."!\n";
                     $message .= "明日の天気は" .$weather['forecasts'][1]['telop'];
                 } else {
-                    // $message = sprintf('%s?', $text); 
-                    $message = 'yoo';
+                    $message = sprintf('%s?', $text); 
                 }
 
                 $json = [

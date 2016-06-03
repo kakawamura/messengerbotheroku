@@ -26,11 +26,6 @@ $app->get('/callback', function (Request $request) use ($app) {
     return $response;
 });
 
-$something = function() {
-  return "something";
-};
-
-
 $app->post('/callback', function (Request $request) use ($app) {
     // ここで色々編集する
     $body = json_decode($request->getContent(), true);
@@ -48,6 +43,7 @@ $app->post('/callback', function (Request $request) use ($app) {
             if ($text) {
                 $path = sprintf('me/messages?access_token=%s', getenv('FACEBOOK_PAGE_ACCESS_TOKEN'));
 
+                $message = '';
                 // TODO: 場所を指定したい
                 if ($text == '天気') {
                     // 現状は東京都の天気
@@ -56,29 +52,20 @@ $app->post('/callback', function (Request $request) use ($app) {
 
                     $message = "今日の天気は" . $weather['forecasts'][0]['telop'] ."!\n";
                     $message .= "明日の天気は" .$weather['forecasts'][1]['telop'];
-                     
-                    $json = [
-                        'recipient' => [
-                            'id' => $from, 
-                        ],
-                        'message' => [
-                            'text' => $message,
-                        ],
-                    ];
-                    $client->request('post', $path, ['json' => $json]);
                 } else {
-                    $json = [
-                        'recipient' => [
-                            'id' => $from, 
-                        ],
-                        'message' => [
-                            //'text' => sprintf('%s?', $text), 
-                            'text' => $something,
-                        ],
-                    ];
-                    $client->request('post', $path, ['json' => $json]);
+                    $message = sprintf('%s?', $text), 
                 }
-            }
+
+                $json = [
+                    'recipient' => [
+                        'id' => $from, 
+                    ],
+                    'message' => [
+                        'text' => $message,
+                    ],
+                ];
+                $client->request('post', $path, ['json' => $json]);
+        }
         }
     }
     return 0;

@@ -43,19 +43,21 @@ $app->post('/callback', function (Request $request) use ($app) {
             if ($text) {
                 $path = sprintf('me/messages?access_token=%s', getenv('FACEBOOK_PAGE_ACCESS_TOKEN'));
 
-                if ($text == 'weather') {
+                // TODO: 場所を指定したい
+                if ($text == '天気') {
+                    // 現状は東京都の天気
                     $url = 'http://weather.livedoor.com/forecast/webservice/json/v1?city=130010';
                     $weather = json_decode(file_get_contents($url), true);
 
-                    $string = "今日の天気は" . $weather['forecasts'][0]['telop'] ."!\n";
-                    $string .= "明日の天気は" .$weather['forecasts'][1]['telop'];
+                    $message = "今日の天気は" . $weather['forecasts'][0]['telop'] ."!\n";
+                    $message .= "明日の天気は" .$weather['forecasts'][1]['telop'];
                      
                     $json = [
                         'recipient' => [
                             'id' => $from, 
                         ],
                         'message' => [
-                            'text' => $string,
+                            'text' => $message,
                         ],
                     ];
                     $client->request('post', $path, ['json' => $json]);
@@ -65,17 +67,21 @@ $app->post('/callback', function (Request $request) use ($app) {
                             'id' => $from, 
                         ],
                         'message' => [
-                            'text' => sprintf('%sふぁああ', $text), 
+                            //'text' => sprintf('%s?', $text), 
+                            'text' => $this->something(),
                         ],
                     ];
                     $client->request('post', $path, ['json' => $json]);
                 }
             }
         }
-
     }
-
     return 0;
 });
+
+private functon something() {
+
+  return "something";
+}
 
 $app->run();

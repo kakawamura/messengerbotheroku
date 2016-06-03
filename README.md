@@ -7,12 +7,9 @@
 
 ## 準備するもの
 
-`.env`ファイルを作成し、以下のように編集する
+Heroku->Dashboard->Settings->Config Varsで
 
-```.env
-FACEBOOK_PAGE_ACCESS_TOKEN="ここに自分のアクセストークン"
-FACEBOOK_PAGE_VERIFY_TOKEN="ここに自分で設定した検証用トークン"
-```
+FACEBOOK_PAGE_ACCESS_TOKENとFACEBOOK_PAGE_VERIFY_TOKENを設定する
 
 `composer`をインストール
 

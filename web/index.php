@@ -68,7 +68,7 @@ $app->post('/callback', function (Request $request) use ($app) {
                         ],
                         'message' => [
                             //'text' => sprintf('%s?', $text), 
-                            'text' => $this->something(),
+                            'text' => $something;
                         ],
                     ];
                     $client->request('post', $path, ['json' => $json]);
@@ -79,9 +79,8 @@ $app->post('/callback', function (Request $request) use ($app) {
     return 0;
 });
 
-private function something() {
-
+$something = function() {
   return "something";
-}
+};
 
 $app->run();

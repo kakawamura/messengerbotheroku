@@ -19,7 +19,7 @@ $app->before(function (Request $request) use($bot) {
 $app->get('/callback', function (Request $request) use ($app) {
     $response = "";
     // Facebookで設定するToken
-    if ($request->query->get('hub_verify_token') === getenv('FACEBOOK_PAGE_VERIFY_TOKEN') {
+    if ($request->query->get('hub_verify_token') === getenv('FACEBOOK_PAGE_VERIFY_TOKEN')) {
         $response = $request->query->get('hub_challenge');
     }
 
